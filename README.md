@@ -54,5 +54,13 @@ The model is very simple to run. We just had to download it and import into ArcG
 
 The model then outputs a feature class that you can overlay with the raster, and you can use the attribute table to see how many features (trees) it identified.
 
+Our 2024 classification turned out alright. The model classified 6294 trees, which is obviously an overestimate based on our manual counting, but the tool seemed to work at classifying individual objects, and I belive had our orthomosaic been better, or had the area been more sparse, the model would have worked great. One major issue with the classification is that some ground debris or branches were classified as separate trees. 
+
+<img width="1109" height="440" alt="image" src="https://github.com/user-attachments/assets/247efe6f-8be3-4456-83e9-1bbf2277453d" />
+
+<img width="1044" height="511" alt="image" src="https://github.com/user-attachments/assets/8838d949-149d-4ec0-810f-63bb43be6972" />
+
+
+
 
 
