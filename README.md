@@ -29,4 +29,30 @@ Once the imagery was collected, we compiled the images into an orthomosaic. We u
 
 The 2024 orthomosaic turned out much better than our 2025 one. In 2025, we captured the images later in the afternoon, which we believe caused a lower contrast, and lower quality images as a result. We also found motion blur in some images, which likely contributed to the pastelle appearance of our ortho.
 
+## Tree Counting Method 1: Manual Counting
+Once we had our orthoimage, we wanted to begin counting the trees! Our first method was to simply count by hand, so we could partially gauge the accuracy of our latest methods. We used the Windows snipping tool markup feature and counted about 1700 trees in each orthomosaic. 
+
+<img width="442" height="527" alt="image" src="https://github.com/user-attachments/assets/f971b7e0-84be-4c01-8c9d-b5f35a9d18e4" />
+
+## Tree Counting Method 2: Pre-trained Neural Network
+Our second method to count trees was to use a pre-trained neural network. The model we used was called "DeepForest" and it was coded in Python. More details of the model can be found here: https://doc.arcgis.com/en/pretrained-models/latest/imagery/introduction-to-tree-detection.htm
+
+<img width="991" height="564" alt="image" src="https://github.com/user-attachments/assets/813eb8f0-5a4c-4a68-bda7-06d2ae0896d6" />
+
+
+The model is very simple to run. We just had to download it and import into ArcGIS Pro, along with a raster file of our orthomosaic. The model takes in an input (that raster) and chugs along to classify the trees. Here is the workflow:
+
+* Install the necessary deep learning packages from GitHub(PyTorch, TensorFlow, scikit-learn, etc…). 254 total
+* Install the model framework online
+* Import the orthomosaic into ArcGIS Pro
+* In the geoprocessing pane, search for “Detect Objects Using Deep Learning”
+* Select the orthomosaic as the input raster, and the downloaded model as the Model Definition
+* Adjust settings (padding, batch size, coordinate system, etc…) to your liking
+* Select processor type and run the model
+
+<img width="289" height="502" alt="image" src="https://github.com/user-attachments/assets/1406a97b-41d3-4448-a591-42f5b05eb18a" />
+
+The model then outputs a feature class that you can overlay with the raster, and you can use the attribute table to see how many features (trees) it identified.
+
+
 
