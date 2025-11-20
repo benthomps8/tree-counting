@@ -20,7 +20,16 @@ The drone we flew was the Mavic 3 with an RGB camera. We flew at a height of 45 
 We also did not have to worry about part 107 certification, since we were working with a couple of supervisors that were certified, and our goal was not business related. We also did not have to worry about collecting data in private locations since we had full permission.
 
 ## Data Processing
-Once the imagery was collected, we compiled the images into an orthomosaic. We used Agisoft Metashape to align the photos, create a point cloud, and from there the orthophoto. Were we to redo the project, we would have first created a DEM from the point cloud, which would have resolved some of our issues. We also should have used ground control points for more accurate alignment. Here are our two orthomosaics, one from the 2024 imagery and one from 2025:
+Once the imagery was collected, we compiled the images into an orthomosaic. We used Agisoft Metashape to align the photos, create a point cloud, and from there the orthophoto. Were we to redo the project, we would have first created a DEM from the point cloud, which would have resolved some of our issues. We also should have used ground control points for more accurate alignment. Here is the workflow to create our orthomosaics:
+
+  * Create new chunk in Agisoft Metashape
+  * Import the drone images
+  * Workflow -> Align Photos (medium accuracy) to generate sparse cloud
+  * Workflow -> Build Point Cloud
+  * Workflow -> Build DEM
+  * Workflow -> Build Orthomosaic
+
+Here are our two orthomosaics, one from the 2024 imagery and one from 2025:
 
 <img width="358" height="431" alt="image" src="https://github.com/user-attachments/assets/e36d9f12-bc41-45c6-b0a6-db336a3c387e" />
 
@@ -59,6 +68,60 @@ Our 2024 classification turned out alright. The model classified 6294 trees, whi
 <img width="1109" height="440" alt="image" src="https://github.com/user-attachments/assets/247efe6f-8be3-4456-83e9-1bbf2277453d" />
 
 <img width="1044" height="511" alt="image" src="https://github.com/user-attachments/assets/8838d949-149d-4ec0-810f-63bb43be6972" />
+
+Our 2025 orthomosaic did not have good results. The model classified 52,945 trees. Because our ortho was so low quality, and also because the trees were fully grown and overlapping with each other, the model had difficulty to differentiate each tree. However, the model was trained with forestry in mind, so because our estimate is so far off, we can assume the issue was with our orthomosaic. 
+
+<img width="790" height="526" alt="image" src="https://github.com/user-attachments/assets/792750ed-d7a1-4fb7-bfc3-ed7626fe7a06" />
+
+Overall, this method was fascinating to use and it is awesome seeing how many pre-trained models there are for a variety of tasks in the GIS world. Next time, we would definitely make sure our orthomosaic is higher quality.
+
+## Tree Counting Method 3: ArcGIS Pro Tools
+
+Our second tree counting method was using a hodgepodge of ArcGIS Pro tools. Our workflow is as follows:
+  * Load raster into ArcGIS Pro
+  * Use “Segment Mean Shift” tool to segment raster into objects based on spectral similarities
+  * Classify trees by using “Train ISO Cluster Classifier” on the output
+  * Use “Classify Raster” tool on the output
+  * Separate raster classification into groups, use “Reclassify” to merge trees/non-trees and keep only trees
+  * Convert to polygons with “Raster to Polygon”
+  * Aggregate polygons w/ aggregation distance of 1 meter
+  * Use “Calculate Geometry” to count the number of trees
+After reclassifiying our raster to remove non-tree values, we get a result that looks like this:
+
+<img width="727" height="494" alt="image" src="https://github.com/user-attachments/assets/63a2a80c-63d2-4c1e-ba05-d3e920f8c9ac" />
+
+We then aggregate the polygons and get the count of polygons, or trees in this case. Unfortunately, our results for this method were even more wild than the deep learning method we used before. Our 2024 orthomosaic resulted in 66,217 classified trees, and our 2025 ortho classified 158,286 trees. 
+
+<img width="779" height="499" alt="image" src="https://github.com/user-attachments/assets/29740aa3-0aec-411e-953b-37968e487734" />
+
+To summarize, this method was clearly not meant for an accurate counting of trees. However, it was fun to mess around with ArcGIS tools and see what all you can do to manipulate rasters. 
+
+
+## Tree Counting Method 4: lidR Package in R
+We did not collect Lidar data for this project, but we were still able to create a point cloud in Agisoft Metashape and use it for analysis. The workflow is as follows:
+  * Trim the point cloud in Agisoft Metashape to remove edges sticking out
+  * Import raster into RStudio. Import lidr package
+
+I unfortunately lost the R file since it was stored in a University fileshare which was deleted when I was no longer enrolled in the class. However, we used readLAS to get the raster data into RStudio. After that, we used crown_segmentation() to extract the high points of the raster, or the tree tops. We then created a canopy height model with the package and used crown_metrics to extract the crowns from the model. 
+
+<img width="939" height="492" alt="image" src="https://github.com/user-attachments/assets/01219573-3fc3-4c99-ae6e-d0192315e017" />
+
+<img width="809" height="527" alt="image" src="https://github.com/user-attachments/assets/dcc8e86e-70d1-4a73-a143-6ae39b646fb8" />
+
+The R lidr package actually counted 1540 crowns, which is by far the closes to our manual count of trees! However, it looks like it may have grouped certain clusters of trees together, so the number may have been a little bit lucky. 
+
+<img width="680" height="598" alt="image" src="https://github.com/user-attachments/assets/a76f6ec3-370e-422e-936a-f5ffa9a446ee" />
+
+Ultimately, this method was very effective, although somewhat convoluted. And it is not easily replicable since Agisoft Metashape has a hefty price. 
+
+
+
+
+
+
+
+
+
 
 
 
