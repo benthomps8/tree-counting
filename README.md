@@ -17,4 +17,16 @@ The drone we flew was the Mavic 3 with an RGB camera. We flew at a height of 45 
 
 <img width="513" height="385" alt="image" src="https://github.com/user-attachments/assets/c95dbaa3-d4bc-45f2-bac7-fb7f53c9bb19" />
 
-We also did not have to worry about part 107 certification, since we were working with a couple of supervisors that were supervised. We also did not have to worry about collecting data in private locations since we had full permission.
+We also did not have to worry about part 107 certification, since we were working with a couple of supervisors that were certified, and our goal was not business related. We also did not have to worry about collecting data in private locations since we had full permission.
+
+## Data Processing
+Once the imagery was collected, we compiled the images into an orthomosaic. We used Agisoft Metashape to align the photos, create a point cloud, and from there the orthophoto. Were we to redo the project, we would have first created a DEM from the point cloud, which would have resolved some of our issues. We also should have used ground control points for more accurate alignment. Here are our two orthomosaics, one from the 2024 imagery and one from 2025:
+
+<img width="358" height="431" alt="image" src="https://github.com/user-attachments/assets/e36d9f12-bc41-45c6-b0a6-db336a3c387e" />
+
+
+<img width="359" height="429" alt="image" src="https://github.com/user-attachments/assets/69176c1f-2a3e-4def-aae0-3ab450dd0f89" />
+
+The 2024 orthomosaic turned out much better than our 2025 one. In 2025, we captured the images later in the afternoon, which we believe caused a lower contrast, and lower quality images as a result. We also found motion blur in some images, which likely contributed to the pastelle appearance of our ortho.
+
+
