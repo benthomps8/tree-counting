@@ -114,6 +114,17 @@ The R lidr package actually counted 1540 crowns, which is by far the closes to o
 
 Ultimately, this method was very effective, although somewhat convoluted. And it is not easily replicable since Agisoft Metashape has a hefty price. 
 
+## Conclusions
+My main takeaway from this project is just how vast the world of remote sensing and GIS is. There are so many tools for such a seemingly unimportant task such as counting trees. Of course, I also learned that the methods all have lots of room for growth. Even the tree-detecting model in Python, with ideally high quality ortho-images, has a precision of only 66%. This makes me excited for potential growth in the GIS space, and I am fascinated with what new techniques will be made or discovered in the coming years. 
+
+## Partner Contributions
+This was a group project, so I did not do all of the work. We all worked together equally for methods three and four, each boucning ideas off of each other and walking through the classifications together. We also all worked together on the pre-flight plan, determining ideal flight height and the amount of pictures we should take and at what overlap. I unfortunately did not attend the actualy flying event due to a schedule conflict, so I did not get experience flying any drones. But to make up for this, I did the entirety of method two, finding the deep learning framework and implementing it. All in all though, each partner contributed equally to the project, and the majority of the work happened in a group setting, where we met on campus about five times to discuss and work through the project. 
+
+## Sources
+Deep Learning Model Download and Information: https://doc.arcgis.com/en/pretrained-models/latest/imagery/introduction-to-tree-detection.htm
+Deep Learning Model Source Code: https://github.com/esri/deep-learning-frameworks
+
+
 
 
 
